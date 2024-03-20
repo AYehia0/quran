@@ -17,13 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: 'Quran'
+          - name: 'quran'
             platform:  'linux/amd64'
             os: 'ubuntu-latest'
-          - name: 'Quran'
+          - name: 'quran'
             platform:  'windows/amd64'
             os: 'windows-latest'
-          - name: 'Quran'
+          - name: 'quran'
             platform:  'darwin/universal'
             os: 'macos-latest'
 
@@ -40,6 +40,6 @@ jobs:
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
-          package: false
+          package: true
           go-version: '1.21'
           node-version: '20.11.1'
