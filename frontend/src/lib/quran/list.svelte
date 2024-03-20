@@ -1,24 +1,16 @@
-<script>
-	import { parseSurahs } from "./parser";
+<script lang="ts">
+	import { getSurahsList } from "./parser";
+    import type { SurahSummary } from "./parser";
+    import { onMount } from "svelte";
 
-    // json file with surahs as : "1": "Al-Fatiha"
-    const surahs = parseSurahs()
-    console.log(surahs.length)
-    console.log(surahs[0])
-    console.log(surahs[1].id)
+    let surahs: SurahSummary[] = [];
+
+    onMount(async () => {
+        surahs = await getSurahsList('/data/surahs.json')
+    })
 </script>
 
 <style>
-    @font-face {
-        font-family: arabic_quran;
-        src: url("/fonts/LPMQ.ttf") format("truetype");
-    }
-
-    @font-face {
-        font-family: suraname;
-        src: url("/fonts/surah_names.woff2") format("woff2");
-    }
-
     .surah-item {
         display: flex;
         justify-content: space-between;
@@ -35,21 +27,17 @@
         margin-right: 10px; /* Adjust margin as needed */
     }
 
-    .arabic-name {
-        font-family: arabic_quran; /* Use the custom font */
-        direction: rtl; /* Right-to-left text direction for Arabic */
-    }
 </style>
 
 <nav class="list-nav">
     <ul>
         {#each surahs as surah }
             <li>
-                <a href="/quran/{surah.id}" class="surah-item">
+                <a href="/{surah.id}" class="surah-item">
                     <span class="badge bg-primary-500">{surah.id}</span>
                     <span>{surah.englishName}</span>
                     <!-- The arabic name to the right -->
-                    <span class="arabic-name">{surah.name}</span>
+                    <span class="arabic-text">{surah.name}</span>
                 </a>
             </li>
         {/each}
