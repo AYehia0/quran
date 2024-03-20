@@ -5,12 +5,18 @@
 
 html,
 body {
-	@apply h-full overflow-hidden;
+    @apply h-full overflow-hidden;
 }
 
-/* gold-nouveau theme */
 @font-face {
-	font-family: 'Quicksand';
-	src: url('/fonts/Quicksand.ttf');
-	font-display: swap;
+    font-family: LPMQ;
+    src: url('/fonts/LPMQ.ttf');
+    font-weight: bold;
+}
+
+/* Apply the LPMQ font to elements containing Arabic text */
+.arabic-text {
+    font-family: LPMQ, sans-serif;
+    font-weight: bold;
+    direction: rtl;
 }
