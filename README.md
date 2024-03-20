@@ -1,9 +1,12 @@
 # Quran app
+
+![](./.assets/quran.png)
+
 A cross-platform quran app built with wails and svelte.
 
 ## Features
 
-- [ ] Read the quran.
+- [X] Read the quran.
 - [ ] Search Surahs and Ayaht.
 - [ ] Bookmark Ayahts.
 - [ ] Listen to Ayahts.
