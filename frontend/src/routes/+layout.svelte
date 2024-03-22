@@ -26,7 +26,11 @@
 		<AppBar>
 
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Quran</strong>
+                <!-- Logo -->
+                <div class="flex items center">
+                    <img src="/logo.png" alt="Logo" class="w-8 h-8" />
+                    <h1 class="ml-2 text-lg font-bold">Quran</h1>
+                </div>
 			</svelte:fragment>
 
             <svelte:fragment slot="trail">
