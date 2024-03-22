@@ -23,9 +23,9 @@ jobs:
           - name: 'quran'
             platform:  'windows/amd64'
             os: 'windows-latest'
-          - name: 'quran'
-            platform:  'darwin/universal'
-            os: 'macos-latest'
+          # - name: 'quran'
+          #   platform:  'darwin/universal'
+          #   os: 'macos-latest'
 
     runs-on: ${{ matrix.build.os }}
     steps:
