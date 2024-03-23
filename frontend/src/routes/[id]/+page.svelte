@@ -48,7 +48,7 @@
 <div class="flex flex-row relative">
     <!-- Left Page -->
     <div class="w-1/2 bg-white relative">
-        {#if leftPage <= MAX_PAGE}
+        {#if leftPage >= 1}
             <img src="/data/images/{leftPage}.png" alt="right" class="w-full h-auto object-fill" />
             <div class="absolute bottom-0 right-1/2 text-black bg-white bg-opacity-50 p-2">
                 {leftPage}
