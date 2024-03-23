@@ -1,14 +1,18 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+    import SearchAyah from '$lib/models/Search/AyahSearch.svelte';
+	import { AppShell, AppBar, Modal } from '@skeletonlabs/skeleton';
+    import '@fortawesome/fontawesome-free/css/fontawesome.css';
 
     // Drawer
     import Navigation from '$lib/navigation/nav.svelte';
-    import { Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
+    import { Drawer, getDrawerStore, initializeStores, getModalStore } from '@skeletonlabs/skeleton';
+    import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
     initializeStores();
 
     const drawerStore = getDrawerStore();
+    const modalStore = getModalStore();
 
     function toggleDrawer() {
         drawerStore.set({ 
@@ -17,9 +21,41 @@
             width: 'w-64',
         });
     }
+
+    // search functionality
+    function triggerSearch() {
+        const model: ModalSettings = {
+            type: 'component',
+            component: 'modelSearch',
+            position: 'item-start'
+        }
+        modalStore.trigger(model);
+    }
+
+    // trigger search bar on "Shift + s"
+    function onWindowKeyDown(event: KeyboardEvent) {
+        // TODO: support mac meta key
+        if (event.shiftKey && event.key === 'S') {
+            event.preventDefault();
+
+            // if the modal is already open, close it
+            $modalStore.length ? modalStore.close() : triggerSearch();
+        }
+    }
+
+    // register the search modal
+    const modalComponentReg: Record<string, ModalComponent> = {
+        modelSearch: {
+            ref: SearchAyah,
+        }
+    }
+
 </script>
 
 <!-- App Shell -->
+<!-- Overlays -->
+<Modal components={modalComponentReg} />
+<svelte:window on:keydown|stopPropagation={onWindowKeyDown} />
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
@@ -34,6 +70,12 @@
 			</svelte:fragment>
 
             <svelte:fragment slot="trail">
+                <!-- Search -->
+                <div class="md:inline md:ml-4">
+                    <button class="btn space-x-4 variant-soft hover:variant-soft-primary" on:click={triggerSearch}>
+                        <i class="fa-solid fa-magnifying-glass text-sm" /><span>Shift + S</span>
+                    </button>
+                </div>
                 <div class="flex items-center">
                     <button class="btn btn-sm ml-4" on:click={toggleDrawer}>
                         <span>
