@@ -33,7 +33,7 @@
     <ul>
         {#each surahs as surah }
             <li>
-                <a href="/{surah.id}" class="surah-item">
+                <a href="/{surah.id}/{surah.page}"class="surah-item">
                     <span class="badge bg-primary-500">{surah.id}</span>
                     <span>{surah.englishName}</span>
                     <!-- The arabic name to the right -->

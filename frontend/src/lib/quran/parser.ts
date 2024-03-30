@@ -1,5 +1,7 @@
 // the typescript file to manage the quran surahs list from the json file
 
+import { page } from '$app/stores';
+
 export interface SurahSummary {
 	id: number; // surah id
 	name: string; // surah name in arabic
@@ -7,6 +9,7 @@ export interface SurahSummary {
 	englishNameTranslation: string; // translation of the surah name in english
 	revelationType: string; // meccan or medinan
 	numberOfAyahs: number; // number of ayahs in the surah
+	page: number;
 }
 
 export interface Surah {
@@ -51,19 +54,20 @@ export async function getSurahsList(path: string): Promise<SurahSummary[]> {
 			englishName: surah.transliteration,
 			englishNameTranslation: surah.translation,
 			revelationType: surah.type,
-			numberOfAyahs: surah.total_verses
+			numberOfAyahs: surah.total_verses,
+			page: surah.page
 		};
 	});
 }
 
-export async function getSurah(path: string, id: number, lang: number): Promise<Surah> {
+export async function getSurah(path: string, id: number): Promise<Surah> {
 	const quran = await fetchJsonData(path);
 
 	if (!Array.isArray(quran) || quran.length === 0) {
 		throw new Error('The quran json file is not found');
 	}
 
-	const surah = quran[id - 1][lang];
+	const surah = quran[id - 1];
 
 	if (!surah) {
 		throw new Error('The surah is not found');
@@ -91,7 +95,7 @@ export async function parseQuran(path: string): Promise<Surah[]> {
 			revelationType,
 			numberOfAyahs,
 			ayahs
-		} = surah[0];
+		} = surah;
 
 		// the ayahs list
 		const ayahsList = ayahs.map((ayah: any) => {

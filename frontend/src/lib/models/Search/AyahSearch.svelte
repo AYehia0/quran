@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { getModalStore } from '@skeletonlabs/skeleton';
-    import type { SearchResult } from '$lib/models/Search/ayah';
-    import { searchAyah } from '$lib/models/Search/ayah';
+    import type { SearchResult } from './ayah';
+    import { searchAyah } from './ayah';
+	import { goto } from '$app/navigation';
 
 	// Classes
 	const cBase = 'card bg-surface-100/60 dark:bg-surface-500/30 backdrop-blur-lg overflow-hidden w-full max-w-[800px] shadow-xl mt-8 mb-auto';
@@ -30,7 +31,6 @@
             // console.log(searchRes);
             if (searchRes) {
                 results = searchRes;
-                console.log(results);
             }
 		}
 	}
@@ -51,17 +51,9 @@
                     <li class="text-lg">
                         <a
                             class={cResultAnchor}
-                            href="/{res.surah}"
-                            on:click={(event) => {
-                                event.preventDefault()
-
+                            href="/{res.surah}-{res.page}"
+                            on:click={() => {
                                 modalStore.close();
-
-                                // // navigate to the page
-                                // FIXME: this goes to the surah and not the ayah in the surah
-                                // FIXME: shouldn't use window.location.href
-                                // https://wails.io/docs/guides/sveltekit#the-wails-runtime-unloads-with-full-page-navigations
-                                window.location.href = `/${res.surah}`;
                             }}
                         >
                             <div class="flex items-center gap-4">
