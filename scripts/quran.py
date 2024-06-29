@@ -21,9 +21,6 @@ def normailze_arabic_text(text):
     # remove the non-arabic characters from the text
     text = araby.strip_tatweel(text)
 
-    # repalce alef with hamza
-    text = araby.normalize_hamza(text)
-
     return text
 
 
@@ -31,13 +28,12 @@ if __name__ == "__main__":
     # check if the user has provided the correct number of arguments
     # ./quran.py add_pages <path_to_surahs.json> <path_to_quran.json>
 
-    if len(sys.argv) != 3:
-        print("Usage: ./quran.py <path_to_surahs.json> <path_to_quran.json>")
+    if len(sys.argv) != 2:
+        print("Usage: ./quran.py <path_to_quran.json>")
         sys.exit(1)
 
     # read the surahs.json file
-    surahs = json.load(open(sys.argv[1], "r"))
-    quran = json.load(open(sys.argv[2], "r"))
+    quran = json.load(open(sys.argv[1], "r"))
 
     new_surahs = []
     new_quran = []
@@ -83,10 +79,6 @@ if __name__ == "__main__":
                 "page": ar_surah["ayahs"][0]["page"],
             }
         )
-
-    # write the new surahs.json file
-    with open("new_surahs.json", "w") as f:
-        json.dump(new_surahs, f, ensure_ascii=False, indent=4)
 
     # write the new quran.json file
     with open("new_quran.json", "w") as f:
