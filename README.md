@@ -39,7 +39,7 @@ If you want to build the application yourself, make sure you have `wails` instal
 
 ## TODO
 
-- [ ] Fix wrong search due to tashkeel and others
+- [X] Fix wrong search due to tashkeel and others
 - [ ] Add vim keybindings
 - [ ] Optimize app size by reducing images quality
 - [ ] Optimize ayah search by using go to search or using sqlite [Speed]
